@@ -1,30 +1,118 @@
 "Weapon_Colors"
 {
-	"name"				"Цвет оружия"    // Название категории в меню
-    "description"		"Позволяет изменять цвет вашего оружия"    // Описание категории в меню
+	"name"				"Weapon colors"
+    "description"		"Allows you to change the colour of your weapon"
 
-	"red"		// Идентефикатор в бд
+	"red"
 	{
-		"name" "Красный"	// Название пункта в меню
-		"color" "255 0 0 255"	// Цвет оружия
-		"price" "200"	// Цена покупки цвета
-		"sellprice" "150"	// Цена продажи цвета
-		"duration" "3600"	// Длительность использования цвета в секундах
+		"name"			"Red"
+		"color"			"255 0 0 255"
+		"price"			"250"
+		"sellprice"		"50"
+		"duration"		"0"
 	}
 	"blue"
 	{
-		"name" "Синий"
-		"color" "0 0 255 255"
-		"price" "200"
-		"sellprice" "150"
-		"duration" "3600"
+		"name"			"Blue"
+		"color"			"0 0 255 255"
+		"price"			"250"
+		"sellprice"		"50"
+		"duration"		"0"
+	}
+	"skyblue_laser"
+	{
+		"name"			"Sky Blue"
+		"color"			"0 128 255 255"
+		"price"			"250"
+		"sellprice"		"50"
+		"duration"		"0"
+	}
+	"Aquamarine_laser"
+	{
+		"name"			"Aquamarine"
+		"color"			"127 255 212 255"
+		"price"			"250"
+		"sellprice"		"50"
+		"duration"		"0"
 	}
 	"green"
 	{
-		"name" "Зеленый"
-		"color" "0 255 0 255"
-		"price" "200"
-		"sellprice" "150"
-		"duration" "3600"
+		"name"			"Green"
+		"color"			"0 255 0 255"
+		"price"			"250"
+		"sellprice"		"50"
+		"duration"		"0"
+	}
+	"Pink_laser"
+	{
+		"name"			"Pink"
+		"color"			"255 0 128 255"
+		"price"			"250"
+		"sellprice"		"50"
+		"duration"		"0"
+	}
+	"Orange_laser"
+	{
+		"name"			"Orange"
+		"color"			"255 128 0 255"
+		"price"			"250"
+		"sellprice"		"50"
+		"duration"		"0"
+	}
+	"Yellow_laser"
+	{
+		"name"			"Yellow"
+		"color"			"255 255 0 255"
+		"price"			"250"
+		"sellprice"		"50"
+		"duration"		"0"
+	}
+	"Cyan_laser"
+	{
+		"name"			"Cyan"
+		"color"			"0 255 255 255"
+		"price"			"250"
+		"sellprice"		"50"
+		"duration"		"0"
+	}
+	"Purple_laser"
+	{
+		"name"			"Purple"
+		"color"			"255 0 255 255"
+		"price"			"250"
+		"sellprice"		"50"
+		"duration"		"0"
+	}
+	"Violet_laser"
+	{
+		"name"			"Violet"
+		"color"			"128 0 255 255"
+		"price"			"250"
+		"sellprice"		"50"
+		"duration"		"0"
+	}
+	"Brown_laser"
+	{
+		"name"			"Brown"
+		"color"			"139 69 19 255"
+		"price"			"250"
+		"sellprice"		"50"
+		"duration"		"0"
+	}
+	"Olive"
+	{
+		"name" 			"Olive"
+		"color" 		"128 255 0 255"
+		"price"			"250"
+		"sellprice"		"50"
+		"duration"		"0"
+	}
+	"Lime"
+	{
+		"name" 			"Lime"
+		"color" 		"0 255 128 255"
+		"price"			"250"
+		"sellprice"		"50"
+		"duration"		"0"
 	}
 }
