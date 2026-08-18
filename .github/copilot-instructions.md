@@ -28,8 +28,7 @@ addons/sourcemod/
 ```
 
 ### Build System
-- **SourceKnight** - Primary build tool (configured in `sourceknight.yaml`)
-- **GitHub Actions** - CI/CD pipeline for automated building and releases
+- **GitHub Actions** - Builds the plugin natively using `rumblefrog/setup-sp` (SourcePawn compiler) and `spcomp`, defined in `.github/workflows/ci.yml`
 - **Output**: Compiled `.smx` files in `/addons/sourcemod/plugins/`
 
 ## Code Standards & Conventions
@@ -100,23 +99,23 @@ SDKHook(iClient, SDKHook_WeaponCanUsePost, WeaponColors_WeaponCanUse);
 
 ### Testing Plugin Changes
 ```bash
-# Build using SourceKnight
-sourceknight build
+# Build locally with spcomp (requires SourceMod 1.12 include files and dependencies)
+spcomp -i include -o ../plugins/Shop_WeaponColors.smx Shop_WeaponColors.sp
 
-# Check output in .sourceknight/package/
+# Or push/open a PR to let GitHub Actions build it
 # Deploy .smx files to test server
 ```
 
 ## Build & Development Workflow
 
 ### Local Development Setup
-1. **Install SourceKnight** - Build tool for SourceMod plugins
-2. **Dependencies are auto-fetched** via `sourceknight.yaml` configuration
-3. **Build command**: `sourceknight build`
+1. Install the SourcePawn compiler (`spcomp`) matching SourceMod 1.12
+2. Clone dependencies (MultiColors, Shop-Core) and place their `include` files under `addons/sourcemod/scripting/include`
+3. **Build command**: `spcomp -i include -o ../plugins/Shop_WeaponColors.smx Shop_WeaponColors.sp`
 
 ### CI/CD Pipeline
 - **Trigger**: Push, PR, or manual dispatch
-- **Build**: Automated via `maxime1907/action-sourceknight@v1`
+- **Build**: Native GitHub Actions workflow (`.github/workflows/ci.yml`) using `rumblefrog/setup-sp` and `spcomp`
 - **Package**: Includes configs and compiled plugins
 - **Release**: Auto-tags and releases on main/master branch
 
@@ -161,7 +160,7 @@ sourceknight build
 - Verify KeyValues structure
 
 **Build failures:**
-- Check `sourceknight.yaml` dependencies
+- Check dependency clone/copy steps in `.github/workflows/ci.yml`
 - Ensure include files are accessible
 - Verify SourceMod compiler version
 
