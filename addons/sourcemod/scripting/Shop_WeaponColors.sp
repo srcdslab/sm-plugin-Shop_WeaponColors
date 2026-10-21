@@ -6,7 +6,7 @@
 #pragma semicolon 1
 #pragma newdecls required
 
-Handle g_hKv = INVALID_HANDLE;
+KeyValues g_hKv = null;
 
 bool g_bHasColor[MAXPLAYERS+1] = { false, ... };
 
@@ -17,7 +17,7 @@ public Plugin myinfo =
 	name = "[Shop] Weapon Colors",
 	description = "Grant player to buy colored weapon skins",
 	author = "R1KO",
-	version = "1.0",
+	version = "1.1",
 	url = "http://www.hlmod.ru/"
 };
 
@@ -40,11 +40,11 @@ public void OnMapStart()
 	char buffer[256];
 	if (g_hKv)
 	{
-		CloseHandle(g_hKv);
+		delete g_hKv;
 	}
-	g_hKv = CreateKeyValues("Weapon_Colors", "", "");
+	g_hKv = new KeyValues("Weapon_Colors", "", "");
 	Shop_GetCfgFile(buffer, sizeof(buffer), "weapon_colors.txt");
-	if (!FileToKeyValues(g_hKv, buffer))
+	if (!g_hKv.ImportFromFile(buffer))
 	{
 		SetFailState("Couldn't parse file %s", buffer);
 	}
@@ -61,27 +61,27 @@ public void Shop_Started()
 	{
 		OnMapStart();
 	}
-	KvRewind(g_hKv);
+	g_hKv.Rewind();
 	char sName[64];
 	char sDescription[64];
-	KvGetString(g_hKv, "name", sName, sizeof(sName), "Weapon Colors");
-	KvGetString(g_hKv, "description", sDescription, sizeof(sDescription), "");
+	g_hKv.GetString("name", sName, sizeof(sName), "Weapon Colors");
+	g_hKv.GetString("description", sDescription, sizeof(sDescription), "");
 	CategoryId category_id = Shop_RegisterCategory("Weapon_Colors", sName, sDescription);
-	KvRewind(g_hKv);
-	if (KvGotoFirstSubKey(g_hKv, true))
+	g_hKv.Rewind();
+	if (g_hKv.GotoFirstSubKey(true))
 	{
 		do {
-			if (KvGetSectionName(g_hKv, sName, sizeof(sName)) && Shop_StartItem(category_id, sName))
+			if (g_hKv.GetSectionName(sName, sizeof(sName)) && Shop_StartItem(category_id, sName))
 			{
-				KvGetString(g_hKv, "name", sName, sizeof(sName), sName);
-				Shop_SetInfo(sName, "", KvGetNum(g_hKv, "price", 1000), KvGetNum(g_hKv, "sellprice", -1), Item_Togglable, KvGetNum(g_hKv, "duration", 604800));
-				Shop_SetCustomInfo("level", KvGetNum(g_hKv, "level", 0));
+				g_hKv.GetString("name", sName, sizeof(sName), sName);
+				Shop_SetInfo(sName, "", g_hKv.GetNum("price", 1000), g_hKv.GetNum("sellprice", -1), Item_Togglable, g_hKv.GetNum("duration", 604800));
+				Shop_SetCustomInfo("level", g_hKv.GetNum("level", 0));
 				Shop_SetCallbacks(_, OnEquipItem);
 				Shop_EndItem();
 			}
-		} while (KvGotoNextKey(g_hKv, true));
+		} while (g_hKv.GotoNextKey(true));
 	}
-	KvRewind(g_hKv);
+	g_hKv.Rewind();
 }
 
 public ShopAction OnEquipItem(int iClient, CategoryId category_id, char[] category, ItemId item_id, char[] item, bool isOn, bool elapsed)
@@ -92,11 +92,11 @@ public ShopAction OnEquipItem(int iClient, CategoryId category_id, char[] catego
 		return Shop_UseOff;
 	}
 	Shop_ToggleClientCategoryOff(iClient, category_id);
-	if (KvJumpToKey(g_hKv, item, false))
+	if (g_hKv.JumpToKey(item, false))
 	{
 		g_bHasColor[iClient] = true;
-		KvGetColor(g_hKv, "color", g_iClientColor[iClient][0], g_iClientColor[iClient][1], g_iClientColor[iClient][2], g_iClientColor[iClient][3]);
-		KvRewind(g_hKv);
+		g_hKv.GetColor("color", g_iClientColor[iClient][0], g_iClientColor[iClient][1], g_iClientColor[iClient][2], g_iClientColor[iClient][3]);
+		g_hKv.Rewind();
 		return Shop_UseOn;
 	}
 	PrintToChat(iClient, "Failed to use \"%s\"!.", item);
