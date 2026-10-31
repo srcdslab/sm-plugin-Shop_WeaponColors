@@ -17,12 +17,14 @@ public Plugin myinfo =
 	name = "[Shop] Weapon Colors",
 	description = "Grant player to buy colored weapon skins",
 	author = "R1KO",
-	version = "1.1",
+	version = "1.1.1",
 	url = "http://www.hlmod.ru/"
 };
 
 public void OnPluginStart()
 {
+	LoadTranslations("Shop_WeaponColors.phrases");
+
 	if (Shop_IsStarted())
 	{
 		Shop_Started();
@@ -99,7 +101,7 @@ public ShopAction OnEquipItem(int iClient, CategoryId category_id, char[] catego
 		g_hKv.Rewind();
 		return Shop_UseOn;
 	}
-	PrintToChat(iClient, "Failed to use \"%s\"!.", item);
+	PrintToChat(iClient, "%t", "Failed To Use Item", item);
 	return Shop_Raw;
 }
 
