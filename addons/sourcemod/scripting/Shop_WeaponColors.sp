@@ -17,7 +17,7 @@ public Plugin myinfo =
 	name = "[Shop] Weapon Colors",
 	description = "Grant player to buy colored weapon skins",
 	author = "R1KO",
-	version = "1.1.1",
+	version = "1.1.2",
 	url = "http://www.hlmod.ru/"
 };
 
